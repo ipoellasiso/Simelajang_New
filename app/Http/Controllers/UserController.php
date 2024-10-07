@@ -14,7 +14,7 @@ class UserController extends Controller
 {
         public function index(Request $request)
     {
-        // $userId = Auth::guard('web')->user()->id;
+        $userId = Auth::guard('web')->user()->id;
         $data = array(
             'title'             => 'Data User',
             'active_side'       => 'active',
@@ -22,7 +22,7 @@ class UserController extends Controller
             'page_title'        => 'Pengaturan',
             'breadcumd1'        => 'Kelola User',
             'breadcumd2'        => 'List User',
-            // 'userx'             => User::where('id',$userId)->first(['name','role','foto']),
+            'userx'             => UserModel::where('id',$userId)->first(['fullname','role','gambar']),
         );
 
         if ($request->ajax()) {

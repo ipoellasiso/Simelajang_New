@@ -10,6 +10,7 @@
     <link rel="shortcut icon" href="/app/assets/images/logo/favicon3.png">
 
     <!-- page css -->
+    <link href=" https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css " rel="stylesheet">
 
     <!-- Core css -->
     <link href="/app/assets/css/app.min.css" rel="stylesheet">
@@ -29,12 +30,13 @@
                                         <img class="img-fluid" alt="" src="/app/assets/images/logo/logo3.png">
                                         <h2 class="m-b-0">Login</h2>
                                     </div>
-                                    <form>
+                                    <form method="POST" class="my-login-validation" action="/cek_login">
+                                        @csrf
                                         <div class="form-group">
                                             <label class="font-weight-semibold" for="userName">Email:</label>
                                             <div class="input-affix">
                                                 <i class="prefix-icon anticon anticon-user"></i>
-                                                <input type="text" class="form-control" name="email" id="email" placeholder="Email">
+                                                <input type="text" class="form-control" name="email" id="email" placeholder="Email" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -42,14 +44,14 @@
                                             <a class="float-right font-size-13 text-muted" href="">Forget Password?</a>
                                             <div class="input-affix m-b-10">
                                                 <i class="prefix-icon anticon anticon-lock"></i>
-                                                <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                                                <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <span class="font-size-13 text-muted">
-                                                    Silahkan isi sesuai Akun Anda  
-                                                    <!-- <a class="small" href=""> Signup</a> -->
+                                                    Klik Home untuk ke Halaman Depan  
+                                                    <a href="/" class="small" href=""> Home</a>
                                                 </span>
                                                 <button class="btn btn-primary">Login</button>
                                             </div>
@@ -80,9 +82,49 @@
     <script src="/app/assets/js/vendors.min.js"></script>
 
     <!-- page js -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Core JS -->
     <script src="/app/assets/js/app.min.js"></script>
+
+    <script>
+        @if (session('success'))
+            Swal.fire({
+              position: "top-center",
+              text: "Success",
+              icon: "success",
+              title: "{{ Session::get('success') }}",
+              showConfirmButton: false,
+              timer: 3500
+            });
+        @endif
+    </script>
+    
+    <script>
+        @if (session('error'))
+            Swal.fire({
+              position: "top-center",
+              text: "Upss Sorry !",
+              icon: "error",
+              title: "{{ Session::get('error') }}",
+              showConfirmButton: false,
+              timer: 5500
+            });
+        @endif
+    </script>
+    
+    <script>
+        @if (session('status'))
+            Swal.fire({
+              position: "top-center",
+              text: "Success",
+              icon: "success",
+              title: "{{ Session::get('status') }}",
+              showConfirmButton: false,
+              timer: 3500
+            });
+        @endif
+    </script>
 
 </body>
 

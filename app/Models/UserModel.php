@@ -15,6 +15,7 @@ class UserModel extends Model
     protected $table = 'users';
 
     protected $fillable = [
+        'id',
         'id_opd',
         'fullname',
         'email',
