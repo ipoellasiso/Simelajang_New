@@ -3,21 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
     public function index()
     {
+        if(Auth::user())
+        {
+            return redirect('/dashboard');
+        }
+
         $data = array(
             'title'             => 'Halaman Login',
-            // 'active_home1'       => 'active',
-            // 'active_kuser'       => 'active',
-            'page_title'        => 'Login',
-            'breadcumd1'        => 'Login',
-            'breadcumd2'        => 'Login',
-            // 'userx'             => User::where('id',$userId)->first(['name','role','foto']),
         );
 
         return view('Auth.Login', $data);
+    }
+
+    public function cek_login(Request $request)
+    {
+        
     }
 }
