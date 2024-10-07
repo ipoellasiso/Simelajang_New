@@ -58,7 +58,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown @if(isset($active_side_tarik)){{ $active_side_tarik }} @endif">
                         <a href="javascript:void(0);">
                             <span>Tarik Data SIPD RI</span>
                             <span class="arrow">
@@ -66,8 +66,8 @@
                             </span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li>
-                                <a href="app-e-commerce-order-list.html">LS</a>
+                            <li class="@if(isset($active_tarik)){{ $active_tarik }} @endif">
+                                <a href="/tarikpajaksipdri">LS</a>
                             </li>
                             <li>
                                 <a href="app-e-commerce-order-list.html">GU</a>

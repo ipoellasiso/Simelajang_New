@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BerandaController;
+use App\Http\Controllers\TarikpajakController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,9 @@ Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::get('/dashboard', [BerandaController::class, 'index'])->middleware('auth:web','checkRole:Admin,Verifikasi,User');
 
+// ======= DATA TARIK PAJAK SIPD RI =======
+Route::get('/tarikpajaksipdri', [TarikpajakController::class, 'index'])->middleware('auth:web','checkRole:Admin');
+Route::post('/simpanjson', [TarikpajakController::class, 'save_json'])->middleware('auth:web','checkRole:Admin');
 
 // ======= DATA USER =======
 Route::get('/tampiluser', [UserController::class, 'index'])->middleware('auth:web','checkRole:Admin');
