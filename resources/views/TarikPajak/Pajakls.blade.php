@@ -16,7 +16,7 @@
                     <div class="input-area">
                         <label for="url" class="form-label">Isi Data Json </label>
                         <!-- <textarea name="textarea" rows="5" cols="40">Write something here</textarea> -->
-                        <textarea id="jsontextarea" name="jsontextarea" type="text" class="form-control" rows="21"></textarea>
+                        <textarea id="jsontextarea" name="jenis1" type="text" class="form-control" rows="21"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" id="saveBtn" value="create" class="btn btn-secondary">
