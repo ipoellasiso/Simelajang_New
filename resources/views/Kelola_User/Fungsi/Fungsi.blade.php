@@ -1,0 +1,195 @@
+<script type="text/javascript">
+    $(function () {
+
+      /*------------------------------------------
+       --------------------------------------------
+       Pass Header Token
+       --------------------------------------------
+       --------------------------------------------*/
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+      /*------------------------------------------
+      --------------------------------------------
+      Render DataTable
+      --------------------------------------------
+      --------------------------------------------*/
+    var table = $('#data-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "/tampiluser",
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'nama_opd', name: 'nama_opd'},
+            {data: 'fullname', name: 'fullname'},
+            {data: 'email', name: 'email'},
+            {data: 'role', name: 'role'},
+            {data: 'gambar', name: 'gambar'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+        ]
+    });
+
+    // tambah data
+    $('#createUser').click(function (){
+        $('#saveBtn').val("create-user");
+        $('#id').val('');
+        $('#userForm').trigger("reset");
+        $('#tambahuser').modal('show');
+        $('#modal-preview').attr('src', 'https://via/placeholder.com/150');
+
+    });
+
+    // edit data
+    $('body').on('click', '.editUser', function()  {
+        var iduser = $(this).data('id');
+        $.get("/user/edit/"+iduser, function (data) {
+            $('#saveBtn').val("edit-user");
+            $('#tambahuser').modal('show');
+            $('#id').val(data.id);
+            $('#fullname').val(data.fullname);
+            $('#email').val(data.email);
+            $('#role').val(data.role);
+            $('#id_opd').val(data.id_opd);
+
+            $('#modal-preview').attr('alt', 'No image available');
+            if(data.gambar){
+                $('#modal-preview').attr('src','app/assets/images/user/'+data.gambar);
+                $('#hidden_image').attr('src','app/assets/images/user/'+data.gambar);
+            }
+        })
+    });
+
+    // simpan data
+    $('body').on('submit', '#userForm', function(e){
+        e.preventDefault();
+
+        var actionType = $('#saveBtn').val();
+        $('#saveBtn').html('Tunggu..');
+
+        var formData = new FormData(this);
+
+        $.ajax({
+            type:'POST',
+            url: "/user/store",
+            data: formData,
+            cacha: false,
+            contentType: false,
+            processData: false,
+            success: (data) => {
+
+                $('#userForm').trigger("reset");
+                $('#tambahuser').modal('hide');
+                $('#saveBtn').html('Simpan');
+
+                Swal.fire({
+                    icon: "success",
+                    title: "success",
+                    text: "Data Berhasil Disimpan"
+                })
+
+                table.draw();
+            },
+            error: function(data){
+                console.log('Error:', data);
+                $('saveBtn').html('Simpan');
+            }
+        });
+    });
+
+    // hapus data
+    $('body').on('click', '.deleteUser', function () {
+
+        var id = $(this).data("id");
+
+        Swal.fire({
+            title: 'Warning ?',
+            text: "Hapus Data Ini ?"  +id,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Delete!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "/user/destroy/"+id,
+                    dataType: "JSON",
+                    success: function(data)
+                    {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Success",
+                            text: data.success
+                        })
+                        table.draw();
+                    },
+                });
+            }else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Data Gagal Dihapus"
+                })
+            }
+        })
+    });
+
+});
+
+function readURL(input, id) {
+    id = id || '#modal-preview';
+    if (input.files && input.files[0]){
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $(id).attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+        $('#modal-preview').removeClass('hidden');
+        $('#start').hide();
+    }
+}
+
+</script>
+
+<script>
+    function deleteData(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/delete/' + id,
+                    type: 'DELETE',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Your data has been deleted.',
+                            'success'
+                        );
+                    },
+                    error: function(response) {
+                        Swal.fire(
+                            'Error!',
+                            'There was an error deleting your data.',
+                            'error'
+                        );
+                    }
+                });
+            }
+        });
+    }
+</script>   
