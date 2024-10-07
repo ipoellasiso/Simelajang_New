@@ -27,7 +27,7 @@
             {data: 'fullname', name: 'fullname'},
             {data: 'email', name: 'email'},
             {data: 'role', name: 'role'},
-            {data: 'gambar', name: 'gambar'},
+            {data: 'is_active1', name: 'is_active1'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
@@ -137,6 +137,82 @@
             }
         })
     });
+
+    $('body').on('click', '.nonaktifUser', function () {
+
+        var id = $(this).data("id");
+
+        Swal.fire({
+            title: 'Warning ?',
+            text: "Nonaktifkan Data Ini ?"+id,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Nonaktifkan!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "/user/nonaktif/"+id,
+                    dataType: "JSON",
+                    success: function(data)
+                    {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Success",
+                            text: data.success
+                        })
+                        table.draw();
+                    },
+                });
+            }else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Data Gagal Dinonaktifkan"
+                })
+            }
+        })
+        });
+
+        $('body').on('click', '.aktifUser', function () {
+
+        var id = $(this).data("id");
+
+        Swal.fire({
+        title: 'Warning ?',
+        text: "Aktif Data Ini ?"+id,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, Aktikan!'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "POST",
+                url: "/user/aktif/"+id,
+                dataType: "JSON",
+                success: function(data)
+                {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Success",
+                        text: data.success
+                    })
+                    table.draw();
+                },
+            });
+        }else {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Data Gagal Diaktifkan"
+            })
+        }
+        })
+        });
 
 });
 

@@ -22,6 +22,7 @@ class UserModel extends Model
         'password',
         'role',
         'gambar',
+        'is_active',
     ];
 
     protected $hidden = [

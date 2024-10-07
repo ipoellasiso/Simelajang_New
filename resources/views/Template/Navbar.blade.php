@@ -44,8 +44,10 @@
                 <div class="p-b-15 p-t-20 dropdown-menu pop-profile">
                     <div class="p-h-20 p-b-15 m-b-10 border-bottom">
                         <div class="d-flex m-r-50">
-                            <div class="avatar-lg avatar-image">
-                                <img src="/app/assets/images/logo/133.png" alt="">
+                            <div class="avatar avatar-lg avatar-image">
+                                @if(Auth::user()->role == 'Admin' || Auth::user()->role == 'Verifikasi' || Auth::user()->role == 'User')
+                                <img src="/app/assets/images/user/{{ $userx->gambar }}" alt="">
+                                @endif
                             </div>
                             <div class="m-l-10">
                                 <p class="m-b-0 text-dark font-weight-semibold">{{ auth()->user()->fullname }}</p>
@@ -65,10 +67,10 @@
                     <a href="/logout" class="dropdown-item d-block p-h-15 p-v-10">
                         <div class="d-flex align-items-center justify-content-between">
                             <div>
-                                <!-- @if(Auth::user()->role == 'Admin' || Auth::user()->role == 'User') -->
+                                @if(Auth::user()->role == 'Admin' || Auth::user()->role == 'Verifikasi' || Auth::user()->role == 'User')
                                     <i class="anticon opacity-04 font-size-16 anticon-logout"></i>
                                     <span class="m-l-10">Logout</span>
-                                <!-- @endif -->
+                                @endif
                             </div>
                             <!-- <i class="anticon font-size-10 anticon-right"></i> -->
                         </div>

@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    // Get data
         public function index(Request $request)
     {
         $userId = Auth::guard('web')->user()->id;
@@ -22,7 +28,7 @@ class UserController extends Controller
             'page_title'        => 'Pengaturan',
             'breadcumd1'        => 'Kelola User',
             'breadcumd2'        => 'List User',
-            'userx'             => UserModel::where('id',$userId)->first(['fullname','role','gambar']),
+            'userx'             => UserModel::where('id',$userId)->first(['fullname','role','gambar',]),
         );
 
         if ($request->ajax()) {
@@ -32,7 +38,7 @@ class UserController extends Controller
             //             ->get();
 
             $datauser = DB::table('users')
-                        ->select('users.fullname', 'users.email', 'users.id_opd', 'users.role', 'users.gambar', 'users.verify_key', 'users.id', 'opd.nama_opd')
+                        ->select('users.fullname', 'users.email', 'users.id_opd', 'users.role', 'users.gambar', 'is_active', 'users.id', 'opd.nama_opd')
                         ->join('opd', 'users.id_opd', 'opd.id',)
                         ->get();
 
@@ -40,13 +46,13 @@ class UserController extends Controller
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
 
-                        $btn = '
-                                <a href="javascript:void(0)" title="Edit Data" data-id="'.$row->id.'" class="editUser btn btn-primary btn-sm">
-                                    <i class="fa fa-edit"></i> 
-                                </a>
-                            ';
+                            $btn = '
+                                    <a href="javascript:void(0)" title="Edit Data" data-id="'.$row->id.'" class="editUser btn btn-primary btn-sm">
+                                        <i class="fa fa-edit"></i> 
+                                    </a>
+                                    ';
 
-                        $btn = $btn.'
+                            $btn = $btn.'
                                     <a href="javascript:void(0)" title="Hapus Data" data-id="'.$row->id.'" class="deleteUser btn btn-danger btn-sm">
                                         <i class="fa fa-trash"></i> 
                                     </a>
@@ -54,7 +60,33 @@ class UserController extends Controller
 
                         return $btn;
                     })
-                    ->rawColumns(['action'])
+                    // ->addColumn('is_active', function($row1){
+                    //     $status = '';
+                    //     if($row1->is_active == 'Aktif') {
+                    //         $status = '<div class="badge bg-success">'.$row1->is_active.'</div>';
+                    //     }else {
+                    //         $status = '<div class="badge bg-danger">'.$row1->is_active.'</div>';
+                    //     }
+                    //     return $status;
+                    // })
+                    ->addColumn('is_active1', function($row){
+                        if($row->is_active == 'Nonaktif')
+                        {
+                            $btn1 = '
+                                    <a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" class="aktifUser btn btn-danger btn-sm">
+                                        <i class="fa fa-thumbs-down"></i> nonaktif
+                                    </a>
+                                  ';
+                        }else {
+                            $btn1 = '
+                                    <a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" class="nonaktifUser btn btn-success btn-sm">
+                                        <i class="fa fa-thumbs-up"></i> aktif
+                                    </a>
+                                  ';
+                        }
+                        return $btn1;
+                    })
+                    ->rawColumns(['action', 'is_active1'])
                     ->make(true);
         }
 
@@ -71,7 +103,7 @@ class UserController extends Controller
         $userId = $request->id;
         $user = UserModel::where('id', $userId)->first(['password']);
 
-        $hashPassword = "";
+        $hashPassword ="";
         if($request->password == "" || $request->password == null){
             $hashPassword = $user->password;
         }else{
@@ -92,6 +124,7 @@ class UserController extends Controller
                 'email'  => $request->email,
                 'password'  => $request->password,
                 'role'  => $request->role,
+                'is_active' => 'Nonaktif',
             ];
 
             if ($files = $request->file('gambar')){
@@ -113,6 +146,27 @@ class UserController extends Controller
         $user = UserModel::where($where)->first();
 
         return response()->json($user);
+    }
+
+    public function nonaktif($id)
+    {
+        $userdt = UserModel::findOrFail($id);
+        $userdt->update([
+            'is_active' => 'Nonaktif',
+        ]);
+
+        return response()->json(['success'=>'Data Berhasil Dinonaktifkan']);
+    }
+
+    public function aktif($id)
+    {
+        $userdt = UserModel::findOrFail($id);
+        
+        $userdt->update([
+            'is_active' => 'Aktif',
+        ]);
+
+        return response()->json(['success'=>'Data Berhasil Diaktifkan']);
     }
 
     public function destroy($id)

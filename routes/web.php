@@ -36,3 +36,5 @@ Route::get('/tampiluser', [UserController::class, 'index'])->middleware('auth:we
 Route::post('/user/store', [UserController::class, 'store'])->middleware('auth:web','checkRole:Admin');
 Route::get('/user/edit/{id}', [UserController::class, 'edit'])->middleware('auth:web','checkRole:Admin');
 Route::delete('/user/destroy/{id}', [UserController::class, 'destroy'])->middleware('auth:web','checkRole:Admin');
+Route::post('/user/aktif/{id}', [UserController::class, 'aktif'])->middleware('auth:web','checkRole:Admin');
+Route::post('/user/nonaktif/{id}', [UserController::class, 'nonaktif'])->middleware('auth:web','checkRole:Admin');
