@@ -23,7 +23,7 @@
                     </span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown @if(isset($active_sidemdata)){{ $active_sidemdata }} @endif">
                         <a href="javascript:void(0);">
                             <span>Master Data</span>
                             <span class="arrow">
@@ -31,8 +31,8 @@
                             </span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li>
-                                <a href="app-project-list.html">Data OPD</a>
+                            <li class="@if(isset($active_opd)){{ $active_opd }} @endif">
+                                <a href="/tampilopd">Data OPD</a>
                             </li>
                             <li>
                                 <a href="app-project-details.html">Data Jenis Pajak</a>
