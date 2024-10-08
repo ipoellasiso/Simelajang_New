@@ -34,14 +34,14 @@
                             <li class="@if(isset($active_opd)){{ $active_opd }} @endif">
                                 <a href="/tampilopd">Data OPD</a>
                             </li>
-                            <li>
-                                <a href="app-project-details.html">Data Jenis Pajak</a>
+                            <li class="@if(isset($active_jp)){{ $active_jp }} @endif">
+                                <a href="/tampiljenispajak">Data Jenis Pajak</a>
+                            </li>
+                            <li class="@if(isset($active_akunpajak)){{ $active_akunpajak }} @endif">
+                                <a href="/tampilakunpajak">Data Akun Pajak</a>
                             </li>
                             <li>
-                                <a href="app-project-details.html">Data Akun Pajak</a>
-                            </li>
-                            <li>
-                                <a href="app-project-details.html">Data Pegawai</a>
+                                <a href="#">Data Pegawai</a>
                             </li>
                         </ul>
                     </li>

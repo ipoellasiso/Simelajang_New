@@ -71,20 +71,17 @@ class OpdController extends Controller
 
         $opdId = $request->id;
 
-        $cek_opd = OpdModel::where('nama_opd', $request->nama_opd)->where('id', '!=', $request->id)->first();
-
-        if($cek_opd)
+        $cekopd = OpdModel::where('nama_opd', $request->nama_opd)->count();
+        if($cekopd > 0)
         {
-            return response()->json(['error'=>'OPD sudah ada']);
+            return redirect()->back()->with('error', 'OPD Sudah Ada');
         }
-        else
-        {
             $details = [
                 'nama_opd'  => $request->nama_opd,
                 'nama_bendahara'  => $request->nama_bendahara,
                 'alamat'  => $request->alamat,
             ];
-        }
+        
 
             OpdModel::updateOrCreate(['id' => $opdId], $details);
             return response()->json(['success' =>'Data Berhasil Disimpan']);
