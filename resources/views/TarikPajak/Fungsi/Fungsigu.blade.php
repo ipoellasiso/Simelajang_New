@@ -20,7 +20,7 @@
     var table = $('#data-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "/tarikpajaksipdri",
+        ajax: "/tarikpajaksipdrigu",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'nomor_sp2d', name: 'nomor_sp2d'},

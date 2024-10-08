@@ -39,6 +39,7 @@
                         <th class="text-center">Keterangan</th>
                         <th class="text-center" width="100px">nilai_sp2d</th>
                         <th class="text-center" >nomor_spm</th>
+                        <th class="text-center" >Jenis</th>
                     </tr>
                 </thead>
                 <tbody>

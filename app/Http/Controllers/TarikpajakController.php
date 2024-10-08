@@ -33,7 +33,8 @@ class TarikpajakController extends Controller
             //             ->get();
 
             $datauser = DB::table('sp2d')
-                        ->select('nomor_sp2d','tanggal_sp2d','nama_skpd','keterangan_sp2d','nilai_sp2d','nomor_spm')
+                        ->select('jenis', 'nomor_sp2d','tanggal_sp2d','nama_skpd','keterangan_sp2d','nilai_sp2d','nomor_spm')
+                        ->whereIn('jenis',['LS'])
                         ->get();
 
             return DataTables::of($datauser)
@@ -44,7 +45,7 @@ class TarikpajakController extends Controller
         return view('TarikPajak.Pajakls', $data);
     }
 
-    public function indexgu()
+    public function indexgu(Request $request)
     {
         $userId = Auth::guard('web')->user()->id;
         $data = array(
@@ -56,6 +57,23 @@ class TarikpajakController extends Controller
             'breadcumd2'        => 'List User',
             'userx'             => UserModel::where('id',$userId)->first(['fullname','role','gambar']),
         );
+
+        if ($request->ajax()) {
+
+            // $datauser = UserModel::select('id', 'id_opd', 'fullname', 'email', 'role', 'gambar')
+            //             ->leftjoin('opd', 'users.id_opd', 'opd.id',)
+            //             ->get();
+
+            $datauser1 = DB::table('sp2d')
+                        ->select('nomor_sp2d','tanggal_sp2d','nama_skpd','keterangan_sp2d','nilai_sp2d','nomor_spm', 'jenis')
+                        ->whereIn('jenis',['GU'])
+                        ->get();
+
+            return DataTables::of($datauser1)
+                    ->addIndexColumn()
+                    ->make(true);
+        }
+
 
         return view('TarikPajak.Pajakgu', $data);
     }
