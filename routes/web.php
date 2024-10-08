@@ -29,7 +29,10 @@ Route::get('/dashboard', [BerandaController::class, 'index'])->middleware('auth:
 
 // ======= DATA TARIK PAJAK SIPD RI =======
 Route::get('/tarikpajaksipdri', [TarikpajakController::class, 'index'])->middleware('auth:web','checkRole:Admin');
+Route::get('/tarikpajaksipdrigu', [TarikpajakController::class, 'indexgu'])->middleware('auth:web','checkRole:Admin');
 Route::post('/simpanjson', [TarikpajakController::class, 'save_json'])->middleware('auth:web','checkRole:Admin');
+Route::post('/simpanjsongu', [TarikpajakController::class, 'save_jsongu'])->middleware('auth:web','checkRole:Admin');
+// Route::get('/tampilpajakls', [UserController::class, 'index'])->middleware('auth:web','checkRole:Admin');
 
 // ======= DATA USER =======
 Route::get('/tampiluser', [UserController::class, 'index'])->middleware('auth:web','checkRole:Admin');

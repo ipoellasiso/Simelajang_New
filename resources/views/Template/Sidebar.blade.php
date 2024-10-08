@@ -69,8 +69,8 @@
                             <li class="@if(isset($active_tarik)){{ $active_tarik }} @endif">
                                 <a href="/tarikpajaksipdri">LS</a>
                             </li>
-                            <li>
-                                <a href="app-e-commerce-order-list.html">GU</a>
+                            <li class="@if(isset($active_tarikgu)){{ $active_tarikgu }} @endif">
+                                <a href="/tarikpajaksipdrigu">GU</a>
                             </li>
                         </ul>
                     </li>
