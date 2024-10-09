@@ -79,18 +79,34 @@
             contentType: false,
             processData: false,
             success: (data) => {
+                if(data.success)
+                {
+                    $('#userForm').trigger("reset");
+                    $('#tambahuser').modal('hide');
+                    $('#saveBtn').html('Simpan');
 
-                $('#userForm').trigger("reset");
-                $('#tambahuser').modal('hide');
-                $('#saveBtn').html('Simpan');
+                    Swal.fire({
+                        icon: "success",
+                        title: "success",
+                        text: "Data Berhasil Disimpan"
+                    })
 
-                Swal.fire({
-                    icon: "success",
-                    title: "success",
-                    text: "Data Berhasil Disimpan"
-                })
+                    table.draw();
+                }
+                else
+                {
+                    $('#userForm').trigger("reset");
+                    $('#tambahopd').modal('hide');
+                    $('#saveBtn').html('Simpan');
 
-                table.draw();
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: "Data Email Sudah Ada"
+                    })
+
+                    table.draw();
+                }
             },
             error: function(data){
                 console.log('Error:', data);
