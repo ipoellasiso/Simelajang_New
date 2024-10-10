@@ -69,6 +69,7 @@ class TarikpajakController extends Controller
             $datauser1 = DB::table('sp2d')
                         ->select('nomor_sp2d','tanggal_sp2d','nama_skpd','keterangan_sp2d','nilai_sp2d','nomor_spm', 'jenis')
                         ->whereIn('jenis',['GU'])
+                        ->whereBetween('sp2d.tanggal_sp2d', ['2024-07-01', '2024-07-30'])
                         ->get();
 
             return DataTables::of($datauser1)

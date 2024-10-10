@@ -28,7 +28,7 @@
         </div>
         </form>
 
-        <div class="m-t-25">
+        <div class="table-responsive">
             <table id="data-table" class="table table-hover">
                 <thead>
                     <tr>

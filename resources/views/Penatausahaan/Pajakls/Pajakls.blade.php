@@ -2,7 +2,8 @@
 @section('content')
 
 
-
+<div class="card">
+<!-- <div class="card-body"> -->
 <ul class="nav nav-tabs nav-justified" id="myTabJustified" role="tablist">
     <li class="nav-item">
         <a class="nav-link active" id="home-tab-justified" data-toggle="tab" href="#pajakls" role="tab" aria-controls="home-justified" aria-selected="true">Pajak LS</a>
@@ -89,6 +90,8 @@
         </div>
 
     </div>
+</div>
+<!-- </div> -->
 </div>
 
 
