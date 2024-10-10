@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\JenispajakController;
 use App\Http\Controllers\OpdController;
+use App\Http\Controllers\PajaklsController;
 use App\Http\Controllers\TarikpajakController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -62,3 +63,12 @@ Route::get('/tampilakunpajak', [AkunpajakController::class, 'index'])->middlewar
 Route::post('/akunpajak/store', [AkunpajakController::class, 'store'])->middleware('auth:web','checkRole:Admin');
 Route::get('/akunpajak/edit/{id}', [AkunpajakController::class, 'edit'])->middleware('auth:web','checkRole:Admin');
 Route::delete('/akunpajak/destroy/{id}', [AkunpajakController::class, 'destroy'])->middleware('auth:web','checkRole:Admin');
+
+// ======= DATA PAJAK LS =======
+Route::get('/tampilpajakls', [PajaklsController::class, 'index'])->middleware('auth:web','checkRole:Admin');
+Route::get('/tampilpajaklstolak', [PajaklsController::class, 'indexpajaklstolak'])->middleware('auth:web','checkRole:Admin');
+Route::post('/pajakls/store', [PajaklsController::class, 'store'])->middleware('auth:web','checkRole:Admin');
+Route::get('/pajakls/edit/{id}', [PajaklsController::class, 'edit'])->middleware('auth:web','checkRole:Admin');
+Route::delete('/pajakls/destroy/{id}', [PajaklsController::class, 'destroy'])->middleware('auth:web','checkRole:Admin');
+Route::post('/pajakls/aktif/{id}', [PajaklsController::class, 'aktif'])->middleware('auth:web','checkRole:Admin');
+Route::post('/pajakls/nonaktif/{id}', [PajaklsController::class, 'nonaktif'])->middleware('auth:web','checkRole:Admin');

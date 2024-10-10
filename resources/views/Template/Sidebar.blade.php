@@ -87,7 +87,7 @@
                     </span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown @if(isset($active_side_dtpajak)){{ $active_side_dtpajak }} @endif">
                         <a href="javascript:void(0);">
                             <span>Data Pajak</span>
                             <span class="arrow">
@@ -95,8 +95,8 @@
                             </span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li>
-                                <a href="">LS</a>
+                            <li class="@if(isset($active_pajakls)){{ $active_pajakls }} @endif">
+                                <a href="/tampilpajakls">LS</a>
                             </li>
                             <li>
                                 <a href="app-e-commerce-order-list.html">GU</a>
