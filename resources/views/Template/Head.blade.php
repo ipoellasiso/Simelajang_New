@@ -11,7 +11,8 @@
     <link href="/app/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
     <link href="/app/assets/vendors/datatables/dataTables.bootstrap.min.css" rel="stylesheet">
 
-    <link href=" https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css " rel="stylesheet">
+    {{-- <link href="/app/assets/vendors/sweetalert2/sweetalert2.min.css" rel="stylesheet"> --}}
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css" rel="stylesheet">
 
     <!-- Core css -->
     <link href="/app/assets/css/app.min.css" rel="stylesheet">

@@ -17,10 +17,10 @@
       Render DataTable
       --------------------------------------------
       --------------------------------------------*/
-    var table = $('.tabelpajaklsterima').DataTable({
+    var table = $('.tabelpajaklstolak').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "/tampilpajakls",
+        ajax: "/tampilpajaklstolak",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'nomor_spm', name: 'nomor_spm'},
@@ -33,7 +33,7 @@
             {data: 'ebilling', name: 'ebilling'},
             {data: 'ntpn', name: 'ntpn'},
             {data: 'status2', name: 'status2'},
-            // {data: 'action', name: 'action', orderable: false, searchable: false},
+            {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
 
@@ -109,99 +109,62 @@
     });
 
     // hapus data
-    $('body').on('click', '.deletePajakls', function () {
+    // $('body').on('click', '.deletePajakls', function () {
 
-        var id = $(this).data("id");
+    //     var id = $(this).data("id");
 
-        Swal.fire({
-            title: 'Warning ?',
-            text: "Hapus Data Ini ?"  +id,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, Delete!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: "DELETE",
-                    url: "/pajakls/destroy/"+id,
-                    dataType: "JSON",
-                    success: function(data)
-                    {
-                        Swal.fire({
-                            icon: "success",
-                            title: "Success",
-                            text: data.success
-                        })
-                        table.draw();
-                    },
-                });
-            }else {
-                Swal.fire({
-                    icon: "error",
-                    title: "Error",
-                    text: "Data Gagal Dihapus"
-                })
-            }
-        })
-    });
+    //     Swal.fire({
+    //         title: 'Warning ?',
+    //         text: "Hapus Data Ini ?"  +id,
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonColor: '#3085d6',
+    //         cancelButtonColor: '#d33',
+    //         confirmButtonText: 'Yes, Delete!'
+    //     }).then((result) => {
+    //         if (result.isConfirmed) {
+    //             $.ajax({
+    //                 type: "DELETE",
+    //                 url: "/pajakls/destroy/"+id,
+    //                 dataType: "JSON",
+    //                 success: function(data)
+    //                 {
+    //                     Swal.fire({
+    //                         icon: "success",
+    //                         title: "Success",
+    //                         text: data.success
+    //                     })
+    //                     table.draw();
+    //                 },
+    //             });
+    //         }else {
+    //             Swal.fire({
+    //                 icon: "error",
+    //                 title: "Error",
+    //                 text: "Data Gagal Dihapus"
+    //             })
+    //         }
+    //     })
+    // });
 
-    $('body').on('click', '.nonaktifPajakls', function () {
 
-        var id = $(this).data("id");
+    $('body').on('click', '.nonaktifPajaklstolak', function () {
 
-        Swal.fire({
-            title: 'Warning ?',
-            text: "Tolak Data Ini ?"+id,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, Tolak!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: "POST",
-                    url: "/pajakls/nonaktif/"+id,
-                    dataType: "JSON",
-                    success: function(data)
-                    {
-                        Swal.fire({
-                            icon: "success",
-                            title: "Success",
-                            text: data.success
-                        })
-                        table.draw();
-                    },
-                });
-            }else {
-                Swal.fire({
-                    icon: "error",
-                    title: "Error",
-                    text: "Data Gagal Ditolak"
-                })
-            }
-        })
-        });
+    var id = $(this).data("id");
 
-        $('body').on('click', '.aktifPajakls', function () {
-
-        var id = $(this).data("id");
-
-        Swal.fire({
+    Swal.fire({
         title: 'Warning ?',
-        text: "Terima Data Ini ?"+id,
+        text: "Tolak Data Ini ?"+id,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, Terima!'
-        }).then((result) => {
+        confirmButtonText: 'Yes, Ditolak!'
+    }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
                 type: "POST",
-                url: "/pajakls/aktif/"+id,
+                url: "/pajakls/tolak/"+id,
                 dataType: "JSON",
                 success: function(data)
                 {
@@ -217,11 +180,49 @@
             Swal.fire({
                 icon: "error",
                 title: "Error",
-                text: "Data Gagal Diterima"
+                text: "Data Gagal Ditolak"
             })
         }
-        })
+    })
+    });
+
+    $('body').on('click', '.aktifPajaklstolak', function () {
+
+    var id = $(this).data("id");
+
+    Swal.fire({
+    title: 'Warning ?',
+    text: "Terima Data Ini ?"+id,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, Terima!'
+    }).then((result) => {
+    if (result.isConfirmed) {
+        $.ajax({
+            type: "POST",
+            url: "/pajakls/terima/"+id,
+            dataType: "JSON",
+            success: function(data)
+            {
+                Swal.fire({
+                    icon: "success",
+                    title: "Success",
+                    text: data.success
+                })
+                table.draw();
+            },
         });
+    }else {
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Data Gagal Diterima"
+        })
+    }
+    })
+    });
 
 });
 
@@ -242,7 +243,7 @@ function readURL(input, id) {
 
 </script>
 
-{{-- <script>
+<script>
     function deleteData(id) {
         Swal.fire({
             title: 'Are you sure?',
@@ -277,4 +278,4 @@ function readURL(input, id) {
             }
         });
     }
-</script>    --}}
+</script>   

@@ -72,3 +72,5 @@ Route::get('/pajakls/edit/{id}', [PajaklsController::class, 'edit'])->middleware
 Route::delete('/pajakls/destroy/{id}', [PajaklsController::class, 'destroy'])->middleware('auth:web','checkRole:Admin');
 Route::post('/pajakls/aktif/{id}', [PajaklsController::class, 'aktif'])->middleware('auth:web','checkRole:Admin');
 Route::post('/pajakls/nonaktif/{id}', [PajaklsController::class, 'nonaktif'])->middleware('auth:web','checkRole:Admin');
+Route::post('/pajakls/terima/{id}', [PajaklsController::class, 'terimapajakls'])->middleware('auth:web','checkRole:Admin');
+Route::post('/pajakls/tolak/{id}', [PajaklsController::class, 'tolakpajakls'])->middleware('auth:web','checkRole:Admin');

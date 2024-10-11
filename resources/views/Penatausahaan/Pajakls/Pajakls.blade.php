@@ -9,7 +9,7 @@
         <a class="nav-link active" id="home-tab-justified" data-toggle="tab" href="#pajakls" role="tab" aria-controls="home-justified" aria-selected="true">Pajak LS</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="profile-tab-justified" data-toggle="tab" href="#pajaklstolak" role="tab" aria-controls="profile-justified" aria-selected="false">Pajak Ls Tolak</a>
+        <a class="nav-link" id="profile-tab-justified" data-toggle="tab" href="#pajaklstolak" role="tab" aria-controls="profile-justified" aria-selected="false">Pajak Ls Ditolak</a>
     </li>
 </ul>
 
@@ -25,7 +25,7 @@
                     </a>
                 </div>
                 {{-- class="m-t-25" --}}
-                <div class="table-responsive">
+                <div class="table-responsive m-t-25">
                     <table id="data-table" class="tabelpajaklsterima table table-hover">
                         <thead>
                             <tr>
@@ -39,8 +39,8 @@
                                 <th>Nilai Pajak</th>
                                 <th>E-Biling</th>
                                 <th>NTPN</th>
-                                <th>Status</th>
-                                <th class="text-center" width="100px">Action</th>
+                                <th></th>
+                                {{-- <th class="text-center" width="100px">Action</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -77,7 +77,7 @@
                                 <th>Nilai Pajak</th>
                                 <th>E-Biling</th>
                                 <th>NTPN</th>
-                                <th>Status</th>
+                                <th></th>
                                 <th class="text-center" width="100px">Action</th>
                             </tr>
                         </thead>
@@ -95,8 +95,8 @@
 </div>
 
 
-
-
+@include('Penatausahaan.Pajakls.Modal.Datapajakls')
+@include('Penatausahaan.Pajakls.Fungsi.Fungsitolak')
 @include('Penatausahaan.Pajakls.Modal.Tambah')
 @include('Penatausahaan.Pajakls.Fungsi.Fungsi')
 @endsection

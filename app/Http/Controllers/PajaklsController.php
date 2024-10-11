@@ -46,22 +46,21 @@ class PajaklsController extends Controller
 
             return Datatables::of($datapajakls)
                     ->addIndexColumn()
-                    ->addColumn('action', function($row){
+                    // ->addColumn('action', function($row){
 
-                            $btn = '
-                                    <a href="javascript:void(0)" title="Edit Data" data-id="'.$row->id.'" class="editPajakls btn btn-primary btn-sm">
-                                        <i class="fa fa-edit"></i> 
-                                    </a>
-                                    ';
+                    //         $btn = '    <div class="btn-group dropright">
+                    //                         <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    //                             <span>Aksi</span>
+                    //                         </button>
+                    //                         <div class="dropdown-menu">
+                    //                             <a class="editPajakls dropdown-item" data-id="'.$row->id.'" href="javascript:void(0)">Ubah</a>
+                    //                             <a class="deletePajakls dropdown-item" data-id="'.$row->id.'" href="javascript:void(0)">Hapus</a>
+                    //                         </div>
+                    //                     </div>
+                    //                 ';
 
-                            $btn = $btn.'
-                                    <a href="javascript:void(0)" title="Hapus Data" data-id="'.$row->id.'" class="deletePajakls btn btn-danger btn-sm">
-                                        <i class="fa fa-trash"></i> 
-                                    </a>
-                                    ';
-
-                        return $btn;
-                    })
+                    //         return $btn;
+                    // })
                     // ->addColumn('is_active', function($row1){
                     //     $status = '';
                     //     if($row1->is_active == 'Aktif') {
@@ -75,18 +74,18 @@ class PajaklsController extends Controller
                         if($row->status2 == 'Tolak')
                         {
                             $btn1 = '
-                                    <a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" class="aktifPajakls btn btn-danger btn-sm">Tolak
+                                    <a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" class="aktifPajakls badge badge-primary btn-sm">Tolak
                                     </a>
                                   ';
                         }else {
                             $btn1 = '
-                                    <a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" class="nonaktifPajakls btn btn-secondary btn-sm">Terima
+                                    <a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" class="nonaktifPajakls badge badge-pill badge-magenta btn-sm">Tolak
                                     </a>
                                   ';
                         }
                         return $btn1;
                     })
-                    ->rawColumns(['action', 'status2'])
+                    ->rawColumns(['status2'])
                     ->make(true);
         }
 
@@ -111,17 +110,16 @@ class PajaklsController extends Controller
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
 
-                            $btn = '
-                                    <a href="javascript:void(0)" title="Edit Data" data-id="'.$row->id.'" class="editPajakls btn btn-primary btn-sm">
-                                        <i class="fa fa-edit"></i> 
-                                    </a>
-                                    ';
-
-                            $btn = $btn.'
-                                    <a href="javascript:void(0)" title="Hapus Data" data-id="'.$row->id.'" class="deletePajakls btn btn-danger btn-sm">
-                                        <i class="fa fa-trash"></i> 
-                                    </a>
-                                    ';
+                        $btn = '    <div class="btn-group dropright">
+                                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                            <span>Aksi</span>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="editPajakls dropdown-item" data-id="'.$row->id.'" href="javascript:void(0)">Ubah</a>
+                                            <a class="deletePajakls dropdown-item" data-id="'.$row->id.'" href="javascript:void(0)">Hapus</a>
+                                        </div>
+                                    </div>
+                                ';
 
                         return $btn;
                     })
@@ -138,12 +136,12 @@ class PajaklsController extends Controller
                         if($row->status2 == 'Tolak')
                         {
                             $btn1 = '
-                                    <a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" class="aktifPajakls btn btn-danger btn-sm">Tolak
+                                    <a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" class="aktifPajaklstolak badge badge-pill badge-green btn-sm">Terima
                                     </a>
                                   ';
                         }else {
                             $btn1 = '
-                                    <a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" class="nonaktifPajakls btn btn-secondary btn-sm">Terima
+                                    <a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" class="nonaktifPajaklstolak btn btn-secondary btn-sm">Terima
                                     </a>
                                   ';
                         }
@@ -231,6 +229,27 @@ class PajaklsController extends Controller
     }
 
     public function aktif($id)
+    {
+        $pajaklsdt = PajaklsModel::findOrFail($id);
+        
+        $pajaklsdt->update([
+            'status2' => 'Terima',
+        ]);
+
+        return response()->json(['success'=>'Data Berhasil Diaktifkan']);
+    }
+
+    public function tolakpajakls($id)
+    {
+        $pajaklsdt = PajaklsModel::findOrFail($id);
+        $pajaklsdt->update([
+            'status2' => 'Tolak',
+        ]);
+
+        return response()->json(['success'=>'Data Berhasil Dinonaktifkan']);
+    }
+
+    public function terimapajakls($id)
     {
         $pajaklsdt = PajaklsModel::findOrFail($id);
         

@@ -10,6 +10,7 @@
     <script src="/app/assets/js/pages/form-elements.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- <script src="/app/assets/vendors/sweetalert2/sweetalert2.min.js"></script> --}}
 
     <!-- Core JS -->
     <script src="/app/assets/js/app.min.js"></script>
