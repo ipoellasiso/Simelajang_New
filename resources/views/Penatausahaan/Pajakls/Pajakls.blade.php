@@ -94,7 +94,7 @@
 <!-- </div> -->
 </div>
 
-
+@include('Penatausahaan.Pajakls.Fungsi.Fungsipajaklssipd')
 @include('Penatausahaan.Pajakls.Modal.Datapajakls')
 @include('Penatausahaan.Pajakls.Fungsi.Fungsitolak')
 @include('Penatausahaan.Pajakls.Modal.Tambah')

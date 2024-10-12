@@ -56,7 +56,7 @@
             $('#id').val(data.id);
             $('#ebilling').val(data.ebilling);
             $('#ntpn').val(data.ntpn);
-            $('#akun_ajak').val(data.akun_ajak);
+            $('#akun_pajak').val(data.akun_pajak);
             $('#jenis_pajak').val(data.jenis_pajak);
             $('#nilai_pajak').val(data.nilai_pajak);
             $('#rek_belanja').val(data.rek_belanja);
@@ -64,7 +64,7 @@
             $('#nomor_npwp').val(data.nomor_npwp);
 
             $('#modal-preview').attr('alt', 'No image available');
-            if(data.gambar){
+            if(data.bukti_pemby){
                 $('#modal-preview').attr('src','app/assets/images/bukti_pemby_pajak/'+data.bukti_pemby);
                 $('#hidden_image').attr('src','app/assets/images/bukti_pemby_pajak/'+data.bukti_pemby);
             }
@@ -90,7 +90,8 @@
             success: (data) => {
 
                 $('#userForm').trigger("reset");
-                $('#tambahuser').modal('hide');
+                $('#tambahpajakls').modal('hide');
+                $('#editpajaklssipd').modal('hide');
                 $('#saveBtn').html('Simpan');
 
                 Swal.fire({

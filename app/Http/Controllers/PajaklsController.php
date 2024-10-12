@@ -154,6 +154,34 @@ class PajaklsController extends Controller
         return view('Penatausahaan.Pajakls.Pajakls');
     }
 
+    public function pilihpajaklssipd(Request $request)
+    {
+        if ($request->ajax()) {
+
+            $datapajaklssipd = DB::table('potongan2')
+                            ->select('potongan2.ebilling', 'potongan2.id', 'potongan2.status1', 'sp2d.tanggal_sp2d', 'sp2d.nomor_sp2d', 'sp2d.nilai_sp2d', 'sp2d.nomor_spm', 'sp2d.tanggal_spm', 'sp2d.npwp_pihak_ketiga', 'sp2d.no_rek_pihak_ketiga', 'potongan2.jenis_pajak', 'potongan2.nilai_pajak')
+                            ->join('sp2d', 'sp2d.idhalaman', 'potongan2.id_potongan')
+                            ->whereIn('potongan2.jenis_pajak', ['Pajak Pertambahan Nilai','Pajak Penghasilan Ps 22','Pajak Penghasilan Ps 23','PPh 21','Pajak Penghasilan Ps 4 (2)'])
+                            ->where('potongan2.status1',['0'])
+                            ->get();
+
+            return Datatables::of($datapajaklssipd)
+                    ->addIndexColumn()
+                    ->addColumn('status2', function($row){
+                        $btn1 = '
+                                    <a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$row->id.'" class="editPajaklssipd badge badge-pill badge-primary btn-sm">Pilih
+                                    </a>
+                                ';
+
+                        return $btn1;
+                    })
+                    ->rawColumns(['status2'])
+                    ->make(true);
+        }
+
+        return view('Penatausahaan.Pajakls.Pajakls');
+    }
+
 
     public function store(Request $request)
     {
@@ -163,8 +191,8 @@ class PajaklsController extends Controller
 
         $pajaklsId = $request->id;
 
-        $cek_ebilling = UserModel::where('ebilling', $request->ebilling)->where('id', '!=', $request->id)->first();
-        $cek_ntppn = UserModel::where('ntpn', $request->ntpn)->where('id', '!=', $request->id)->first();
+        $cek_ebilling = PajaklsModel::where('ebilling', $request->ebilling)->where('id', '!=', $request->id)->first();
+        $cek_ntppn = PajaklsModel::where('ntpn', $request->ntpn)->where('id', '!=', $request->id)->first();
 
         if($cek_ebilling)
         {
@@ -180,13 +208,14 @@ class PajaklsController extends Controller
             $detailspotongan = [
                 'ebilling' => $request->ebilling,
                 'jenis_pajak' => $request->jenis_pajak,
-                'nilai_pajak' =>str_replace('.','', $request->nilai_pajak),
+                'nilai_pajak' =>$request->nilai_pajak,
+                'status1' => '1',
             ];
 
             $detailspajakls = [
                 'ebilling' => $request->ebilling, 
                 'ntpn' => $request->ntpn, 
-                'akun_ajak' => $request->akun_pajak,
+                'akun_pajak' => $request->akun_pajak,
                 'jenis_pajak' => $request->jenis_pajak,
                 'nilai_pajak' =>str_replace('.','', $request->nilai_pajak),
                 'rek_belanja' => $request->rek_belanja,
@@ -194,6 +223,7 @@ class PajaklsController extends Controller
                 'nomor_npwp' => $request->nomor_npwp,
                 // 'bukti_pemby' => $request->bukti_pemby,
                 'status2' => 'Terima',
+                'id_potonganls' => $request->id,
             ];
 
             if ($files = $request->file('bukti_pemby')){
@@ -218,11 +248,24 @@ class PajaklsController extends Controller
         return response()->json($pajakls);
     }
 
+    public function editpajaklssipd($id)
+    {
+        $where = array('id' => $id);
+        $pajaklssipd = PotonganModel::where($where)->first();
+
+        return response()->json($pajaklssipd);
+    }
+
     public function nonaktif($id)
     {
         $pajaklsdt = PajaklsModel::findOrFail($id);
         $pajaklsdt->update([
             'status2' => 'Tolak',
+        ]);
+
+        $pajaklsdt = PotonganModel::findOrFail($id);
+        $pajaklsdt->update([
+            'status1' => '0',
         ]);
 
         return response()->json(['success'=>'Data Berhasil Dinonaktifkan']);
@@ -255,6 +298,12 @@ class PajaklsController extends Controller
         
         $pajaklsdt->update([
             'status2' => 'Terima',
+        ]);
+
+        $pajaklsdt = PotonganModel::findOrFail($id);
+        
+        $pajaklsdt->update([
+            'status1' => '1',
         ]);
 
         return response()->json(['success'=>'Data Berhasil Diaktifkan']);

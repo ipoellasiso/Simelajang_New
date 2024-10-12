@@ -1,5 +1,6 @@
-<div class="modal fade bd-example-modal-xl" id="tambahpajakls">
-    <div class="modal-dialog modal-xl">
+<div class="modal fade bd-example-modal-xl" id="tambahpajakls" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog modal-xl">
+  
         <div class="modal-content">
             {{-- <div class="modal-header">
                 <h5 class="modal-title h4">Extra large modal</h5>
@@ -15,46 +16,56 @@
                             <div class="form-row col-12">
                                 <div class="form-group col-md-6">
                                     <label>Pilih Pajak</label>
-                                    <button class="btn btn-tone btn-primary">
-                                        <i class="anticon anticon-sync" data-toggle="modal" data-target=".bd-example-modal-xl" data-dismiss="modal"></i>
+                                    <button class="btn btn-tone btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl" data-dismiss="modal">
+                                        <i class="anticon anticon-sync"></i>
                                     </button>
                                 </div>
                             </div>
                             <div class="form-row col-12">
                                 <div class="form-group col-md-6">
-                                    <label>Nama OPD</label>
-                                    <input type="text" class="form-control" name="nama_opd" id="nama_opd" value="" placeholder="Nama OPD ...." required>
+                                    <label>Nama NPWP</label>
+                                    <input type="text" class="form-control" name="nama_npwp" id="nama_npwp" value="" placeholder="" required>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label>Nama Bendahara</label>
-                                    <input type="text" class="form-control" name="nama_bendahara" id="nama_bendahara" value="" placeholder="Nama Bendahara ...." required>
-                                </div>
-                            </div>
-                            <div class="form-row col-12">
-                                <div class="form-group col-md-6">
-                                    <label>Nama OPD</label>
-                                    <input type="text" class="form-control" name="nama_opd" id="nama_opd" value="" placeholder="Nama OPD ...." required>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label>Nama Bendahara</label>
-                                    <input type="text" class="form-control" name="nama_bendahara" id="nama_bendahara" value="" placeholder="Nama Bendahara ...." required>
+                                    <label>Nomor NPWP</label>
+                                    <input type="text" class="form-control" name="nomor_npwp" id="nomor_npwp" value="" placeholder="" required>
                                 </div>
                             </div>
                             <div class="form-row col-12">
                                 <div class="form-group col-md-6">
-                                    <label>Nama OPD</label>
-                                    <input type="text" class="form-control" name="nama_opd" id="nama_opd" value="" placeholder="Nama OPD ...." required>
+                                    <label>Akun Pajak</label>
+                                    <input type="text" class="form-control" name="akun_pajak" id="akun_pajak" value="" placeholder="" required>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label>Nama Bendahara</label>
-                                    <input type="text" class="form-control" name="nama_bendahara" id="nama_bendahara" value="" placeholder="Nama Bendahara ...." required>
+                                    <label>Jenis Pajak</label>
+                                    <input type="text" class="form-control" name="jenis_pajak" id="jenis_pajak" value="" placeholder="" required>
+                                </div>
+                            </div>
+                            <div class="form-row col-12">
+                                <div class="form-group col-md-6">
+                                    <label>Ebilling</label>
+                                    <input type="text" class="form-control" name="ebilling" id="ebilling" value="" placeholder="" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Rekening Belanja</label>
+                                    <input type="text" class="form-control" name="rek_belanja" id="rek_belanja" value="" placeholder="" required>
+                                </div>
+                            </div>
+                            <div class="form-row col-12">
+                                <div class="form-group col-md-6">
+                                    <label>NTPN</label>
+                                    <input type="text" class="form-control" name="ntpn" id="ntpn" value="" placeholder="" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Nilai Pajak</label>
+                                    <input type="text" class="form-control" name="nilai_pajak" id="nilai_pajak" value="" placeholder="" required>
                                 </div>
                             </div>
                             
                             <div class="form-row col-12">
                                 <div class="form-group col-md-6">
                                     <label>Upload Foto</label>
-                                    <input type="file" class="form-control" name="gambar" id="gambar" accept="image/*" onchange="readURL(this);">
+                                    <input type="file" class="form-control" name="bukti_pemby" id="bukti_pemby" accept="image/*" onchange="readURL(this);">
                                     <input type="hidden" name="hidden_image" id="hidden_image">
                                     <small>Upload Foto Harus Format JPG,JPEG / PNS dan Max File 5MB </small>
                                 </div>
@@ -66,7 +77,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">
-                            <i class="fa fa-save"></i> Close
+                            <i class="anticon anticon-undo"></i> Close
                         </button>
                         <button type="submit" id="saveBtn" value="create" class="btn btn-secondary">
                             <i class="fa fa-save"></i>  Simpan

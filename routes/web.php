@@ -74,3 +74,5 @@ Route::post('/pajakls/aktif/{id}', [PajaklsController::class, 'aktif'])->middlew
 Route::post('/pajakls/nonaktif/{id}', [PajaklsController::class, 'nonaktif'])->middleware('auth:web','checkRole:Admin');
 Route::post('/pajakls/terima/{id}', [PajaklsController::class, 'terimapajakls'])->middleware('auth:web','checkRole:Admin');
 Route::post('/pajakls/tolak/{id}', [PajaklsController::class, 'tolakpajakls'])->middleware('auth:web','checkRole:Admin');
+Route::get('/tampilpajaklssipd', [PajaklsController::class, 'pilihpajaklssipd'])->middleware('auth:web','checkRole:Admin');
+Route::get('/pajaklssipd/edit/{id}', [PajaklsController::class, 'editpajaklssipd'])->middleware('auth:web','checkRole:Admin');

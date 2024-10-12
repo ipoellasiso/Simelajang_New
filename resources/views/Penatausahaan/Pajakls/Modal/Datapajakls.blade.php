@@ -1,11 +1,11 @@
-<div class="modal fade bd-example-modal-xl" >
-    <div class="modal-dialog modal-xl">
+<div class="modal fade bd-example-modal-xl" id="editpajaklssipd" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title h4">{{ $title }}</h5>
-                <button type="button" class="close" data-dismiss="modal">
-                    <i class="anticon anticon-close"></i>
-                </button>
+                {{-- <button type="button" class="close" data-dismiss="modal">
+                    <i class="anticon anticon-close" data-toggle="modal" data-target=".bd-example-modal-xl"></i>
+                </button> --}}
             </div>
             <div class="modal-body">
                 <div class="card">
@@ -18,19 +18,17 @@
                         </div>
                         {{-- class="m-t-25" --}}
                         <div class="table-responsive">
-                            <table id="data-table3" class="tabelpajaklssipdri table table-hover">
+                            <table id="data-table" class="tabelpajaklssipdri table table-hover">
                                 <thead>
                                     <tr>
                                         <th class="text-center">No</th>
-                                        <th>Nomor SPM</th>
+                                        {{-- <th>Nomor SPM</th> --}}
                                         <th>Tanggal SP2D</th>
                                         <th>Nomor SP2D</th>
                                         <th>Nilai SP2D</th>
-                                        <th>Akun Pajak</th>
                                         <th>Jenis Pajak</th>
                                         <th>Nilai Pajak</th>
                                         <th>E-Biling</th>
-                                        <th>NTPN</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -41,6 +39,15 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" data-toggle="modal" data-target="#tambahpajakls">
+                    <i class="anticon anticon-undo"></i> Kembali
+                </button>
+                {{-- <button type="submit" id="saveBtn" value="create" class="btn btn-secondary">
+                    <i class="fa fa-save"></i>  Simpan
+                </button> --}}
+
             </div>
         </div>
     </div>

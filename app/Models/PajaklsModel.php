@@ -23,6 +23,6 @@ class PajaklsModel extends Model
         'status2',
         'created_at',
         'updated_at',
-        'id',
+        'id_potonganls',
     ];
 }
