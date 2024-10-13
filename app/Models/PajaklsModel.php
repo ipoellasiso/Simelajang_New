@@ -12,6 +12,7 @@ class PajaklsModel extends Model
     protected $primaryKey = "id";
     protected $fillable = [
         'ebilling',
+        'id',
         'ntpn',
         'akun_pajak',
         'jenis_pajak',

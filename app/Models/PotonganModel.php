@@ -12,6 +12,7 @@ class PotonganModel extends Model
     protected $primaryKey = "id";
     protected $fillable = [
         'id_potongan',
+        'id',
         'jenis_pajak',
         'nilai_pajak',
         'status1',

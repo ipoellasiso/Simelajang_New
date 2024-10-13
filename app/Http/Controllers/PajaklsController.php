@@ -35,7 +35,7 @@ class PajaklsController extends Controller
         if ($request->ajax()) {
 
             $datapajakls = DB::table('pajakkpp')
-                        ->select('potongan2.ebilling', 'sp2d.tanggal_sp2d', 'pajakkpp.nilai_pajak', 'sp2d.nomor_sp2d', 'sp2d.nomor_spm', 'sp2d.tanggal_spm', 'pajakkpp.nomor_npwp', 'pajakkpp.akun_pajak', 'pajakkpp.ntpn', 'pajakkpp.jenis_pajak', 'potongan2.nilai_pajak','pajakkpp.rek_belanja','pajakkpp.nama_npwp', 'pajakkpp.id_potonganls', 'pajakkpp.id', 'potongan2.status1', 'pajakkpp.status2', 'pajakkpp.created_at', 'pajakkpp.bukti_pemby', 'sp2d.nilai_sp2d', 'pajakkpp.nilai_pajak')
+                        ->select('potongan2.ebilling', 'sp2d.tanggal_sp2d', 'pajakkpp.nilai_pajak', 'sp2d.nomor_sp2d', 'sp2d.nomor_spm', 'sp2d.tanggal_spm', 'pajakkpp.nomor_npwp', 'pajakkpp.akun_pajak', 'pajakkpp.ntpn', 'pajakkpp.jenis_pajak', 'potongan2.nilai_pajak','pajakkpp.rek_belanja','pajakkpp.nama_npwp', 'pajakkpp.id_potonganls', 'pajakkpp.id', 'potongan2.status1', 'pajakkpp.status2', 'pajakkpp.created_at', 'pajakkpp.bukti_pemby', 'sp2d.nilai_sp2d', 'pajakkpp.nilai_pajak', 'potongan2.id')
                         // ->join('tb_akun_pajak', 'tb_akun_pajak.id', '=', 'pajakkpp.akun_pajak')
                         // ->join('tb_jenis_pajak', 'tb_jenis_pajak.id', '=', 'pajakkpp.jenis_pajak')
                         ->join('potongan2',  'potongan2.id', 'pajakkpp.id_potonganls')
@@ -97,7 +97,7 @@ class PajaklsController extends Controller
         if ($request->ajax()) {
 
             $datapajaklstolak = DB::table('pajakkpp')
-                        ->select('potongan2.ebilling', 'sp2d.tanggal_sp2d', 'pajakkpp.nilai_pajak', 'sp2d.nomor_sp2d', 'sp2d.nomor_spm', 'sp2d.tanggal_spm', 'pajakkpp.nomor_npwp', 'pajakkpp.akun_pajak', 'pajakkpp.ntpn', 'pajakkpp.jenis_pajak', 'potongan2.nilai_pajak','pajakkpp.rek_belanja','pajakkpp.nama_npwp', 'pajakkpp.id_potonganls', 'pajakkpp.id', 'potongan2.status1', 'pajakkpp.status2', 'pajakkpp.created_at', 'pajakkpp.bukti_pemby', 'sp2d.nilai_sp2d', 'pajakkpp.nilai_pajak')
+                        ->select('potongan2.ebilling', 'sp2d.tanggal_sp2d', 'pajakkpp.nilai_pajak', 'sp2d.nomor_sp2d', 'sp2d.nomor_spm', 'sp2d.tanggal_spm', 'pajakkpp.nomor_npwp', 'pajakkpp.akun_pajak', 'pajakkpp.ntpn', 'pajakkpp.jenis_pajak', 'potongan2.nilai_pajak','pajakkpp.rek_belanja','pajakkpp.nama_npwp', 'pajakkpp.id_potonganls', 'pajakkpp.id', 'potongan2.status1', 'pajakkpp.status2', 'pajakkpp.created_at', 'pajakkpp.bukti_pemby', 'sp2d.nilai_sp2d', 'pajakkpp.nilai_pajak', 'potongan2.id')
                         // ->join('tb_akun_pajak', 'tb_akun_pajak.id', '=', 'pajakkpp.akun_pajak')
                         // ->join('tb_jenis_pajak', 'tb_jenis_pajak.id', '=', 'pajakkpp.jenis_pajak')
                         ->join('potongan2',  'potongan2.id', 'pajakkpp.id_potonganls')
@@ -258,26 +258,35 @@ class PajaklsController extends Controller
 
     public function nonaktif($id)
     {
-        $pajaklsdt = PajaklsModel::findOrFail($id);
-        $pajaklsdt->update([
+        $pajaklsdt13 = PajaklsModel::findOrFail($id);
+        $pajaklsdt13->update([
             'status2' => 'Tolak',
         ]);
 
-        $pajaklsdt = PotonganModel::findOrFail($id);
-        $pajaklsdt->update([
-            'status1' => '0',
-        ]);
+        // $pajaklsdt14 = PotonganModel::findOrFail($id);
+        //     $pajaklsdt14->update([
+        //         'status1' => '0',
+        //     ]);
+    
+        
 
         return response()->json(['success'=>'Data Berhasil Dinonaktifkan']);
     }
 
     public function aktif($id)
     {
-        $pajaklsdt = PajaklsModel::findOrFail($id);
+        $pajaklsdt15 = PajaklsModel::findOrFail($id);
         
-        $pajaklsdt->update([
+        $pajaklsdt15->update([
             'status2' => 'Terima',
         ]);
+
+        // $pajaklsdt11 = PotonganModel::findOrFail($id);
+        //     $pajaklsdt11->update([
+        //         'status1' => '1',
+        //     ]);
+    
+    
 
         return response()->json(['success'=>'Data Berhasil Diaktifkan']);
     }
@@ -289,23 +298,32 @@ class PajaklsController extends Controller
             'status2' => 'Tolak',
         ]);
 
+        // if($pajaklsdt14 = PotonganModel::findOrFail($id));{
+        //     $pajaklsdt14->update([
+        //         'status1' => '0',
+        //     ]);
+    
+        // }
+
         return response()->json(['success'=>'Data Berhasil Dinonaktifkan']);
     }
 
     public function terimapajakls($id)
     {
-        $pajaklsdt = PajaklsModel::findOrFail($id);
+        $pajaklsdt12 = PajaklsModel::findOrFail($id);
         
-        $pajaklsdt->update([
+        $pajaklsdt12->update([
             'status2' => 'Terima',
         ]);
 
-        $pajaklsdt = PotonganModel::findOrFail($id);
+        // if($pajaklsdt11 = PotonganModel::findOrFail($id));{
+        //     $pajaklsdt11->update([
+        //         'status1' => '1',
+        //     ]);
+    
+        // }
         
-        $pajaklsdt->update([
-            'status1' => '1',
-        ]);
-
+        
         return response()->json(['success'=>'Data Berhasil Diaktifkan']);
     }
 
